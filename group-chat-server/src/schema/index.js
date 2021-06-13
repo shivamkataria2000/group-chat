@@ -5,16 +5,16 @@ import db from "../utils/db"; // eslint-disable-line no-unused-vars
 const schemaComposer = new SchemaComposer();
 
 import { UserQuery, UserMutation } from "./user";
-import { GroupsQuery, GroupsMutation } from "./groups";
+import { GroupQuery, GroupMutation } from "./group";
 
 schemaComposer.Query.addFields({
   ...UserQuery,
-  ...GroupsQuery,
+  ...GroupQuery,
 });
 
 schemaComposer.Mutation.addFields({
   ...UserMutation,
-  ...GroupsMutation,
+  ...GroupMutation,
 });
 
 export default schemaComposer.buildSchema();
