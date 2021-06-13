@@ -1,0 +1,25 @@
+[
+      {
+        "name": "Secrets",
+        "description": "Share some secrets",
+        "_id": "60c5be40aee987345046ca6e",
+        "chat": [
+          {
+            "user": "60c5acd7d0acc9272b2d259f",
+            "message": "Yes go ahead"
+          }
+        ]
+      },
+      {
+        "name": "Random Chat",
+        "description": "Just for fun",
+        "_id": "60c5be5faee987345046ca6f",
+        "chat": []
+      },
+      {
+        "name": "Random Chat-2",
+        "description": "Just for fun X2",
+        "_id": "60c5be68aee987345046ca70",
+        "chat": []
+      }
+    ]
