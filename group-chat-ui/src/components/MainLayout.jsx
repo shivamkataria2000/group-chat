@@ -14,10 +14,11 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import groupsData from "../test-data/groups.json";
-import { Avatar, Card, CardContent, CardHeader } from "@material-ui/core";
-import { GET_GROUPS, GET_USERS } from "./App";
-import { useQuery } from "@apollo/client";
+import SendIcon from "@material-ui/icons/Send";
+import { Fab, Grid, TextField } from "@material-ui/core";
+import { GET_GROUPS, GET_USERS, PUSH_MESSAGE } from "./App";
+import { useMutation, useQuery } from "@apollo/client";
+import Message from "./Message";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -53,6 +54,20 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     maxWidth: "75%",
+    minWidth: "25%",
+    height: "auto",
+  },
+  cardContent: {
+    padding: "0 0 0 16px",
+    "&:last-child": {
+      paddingBottom: 0,
+    },
+  },
+  cardHeader: {
+    padding: "0 0 0 16px",
+    "&:last-child": {
+      paddingBottom: 0,
+    },
   },
 }));
 
@@ -64,13 +79,27 @@ function MainLayout(props) {
   //const [groups, setGroups] = useState(groupsData);
   const getGroups = useQuery(GET_GROUPS);
   const getUsers = useQuery(GET_USERS);
+  // TODO: Get from context
+  const currentUser = "60c50c8485d8a022262decef";
   const [selectedGroupIndex, setSelectedGroupIndex] = useState(0);
+  const [draftMessage, setDraftMessage] = useState("");
+  const [pushMessage] = useMutation(PUSH_MESSAGE);
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-  const getInitials = (name) => {
-    return name.charAt(0).toUpperCase();
+  const sendMessage = () => {
+    if (!draftMessage) return;
+    pushMessage({
+      variables: {
+        id: getGroups.data.groupMany[selectedGroupIndex]._id,
+        message: draftMessage,
+        user: currentUser,
+      },
+    });
+    setDraftMessage("");
   };
+
   const drawer = (
     <div>
       <div className={classes.toolbar} />
@@ -162,25 +191,32 @@ function MainLayout(props) {
                   )
                 : null;
               return (
-                <Card key={index} className={classes.card}>
-                  <CardHeader
-                    avatar={
-                      <Avatar aria-label="recipe">
-                        {fromUser ? getInitials(fromUser.name) : "U"}
-                      </Avatar>
-                    }
-                    title={fromUser ? fromUser.name : "User"}
-                    subheader="September 14, 2016"
-                  />
-                  <CardContent>
-                    <Typography variant="h6" noWrap>
-                      {messageBlock.message}
-                    </Typography>
-                  </CardContent>
-                </Card>
+                <Message
+                  fromUser={fromUser}
+                  messageBlock={messageBlock}
+                  key={index}
+                  classes={classes}
+                ></Message>
               );
             }
           )}
+        <Grid container style={{ padding: "20px" }}>
+          <Grid item xs={11}>
+            <TextField
+              id="outlined-basic-email"
+              label="Type Something"
+              fullWidth
+              value={draftMessage}
+              onChange={(e) => setDraftMessage(e.target.value)}
+              onKeyUp={(e) => e.key == "Enter" && sendMessage()}
+            />
+          </Grid>
+          <Grid xs={1} align="right">
+            <Fab color="primary" aria-label="add">
+              <SendIcon onClick={sendMessage} />
+            </Fab>
+          </Grid>
+        </Grid>
       </main>
     </div>
   );

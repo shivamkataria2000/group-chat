@@ -26,6 +26,20 @@ export const GET_GROUPS = gql`
     }
   }
 `;
+export const PUSH_MESSAGE = gql`
+  mutation pushMessage($id: String!, $message: String!, $user: String!) {
+    chatPushToArray(
+      groupId: $id
+      valueToPush: { user: $user, message: $message }
+    ) {
+      name
+      chat {
+        message
+        user
+      }
+    }
+  }
+`;
 function Users() {
   const { loading, error, data } = useQuery(GET_USERS);
 
