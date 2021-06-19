@@ -40,6 +40,18 @@ export const PUSH_MESSAGE = gql`
     }
   }
 `;
+export const GROUP_SUBSCRIPTION = gql`
+  subscription {
+    group {
+      _id
+      chat {
+        message
+        user
+      }
+    }
+  }
+`;
+
 function Users() {
   const { loading, error, data } = useQuery(GET_USERS);
 
@@ -63,9 +75,6 @@ function App() {
   const [user, setUser] = useState(true);
   return (
     <Fragment>
-      {
-        // <Users />
-      }
       {user ? <MainLayout user={user}></MainLayout> : <Registration />}
     </Fragment>
   );

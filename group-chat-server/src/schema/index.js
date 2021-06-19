@@ -7,6 +7,9 @@ const schemaComposer = new SchemaComposer();
 import { UserQuery, UserMutation } from "./user";
 import { GroupQuery, GroupMutation } from "./group";
 import { Group, GroupTC } from "../models/group";
+import { PubSub } from "graphql-subscriptions";
+
+const pubsub = new PubSub();
 
 schemaComposer.Mutation.addFields({
   chatPushToArray: {
@@ -24,10 +27,23 @@ schemaComposer.Mutation.addFields({
         { $push: { chat: args.valueToPush } }
       );
       if (!group) return null; // or gracefully return an error etc...
-      return Group.findOne({ _id: args.groupId }); // return the record
+      const changedGroup = await Group.findOne({ _id: args.groupId });
+      pubsub.publish("MESSAGE_PUSHED", { payload: changedGroup });
+      return changedGroup; // return the record
     },
   },
 });
+schemaComposer.Subscription.addFields({
+  group: {
+    type: GroupTC,
+    subscribe: () => pubsub.asyncIterator(["MESSAGE_PUSHED"]),
+    resolve: (resp, args) => {
+      console.log(resp);
+      return resp.payload;
+    },
+  },
+});
+
 schemaComposer.Query.addFields({
   ...UserQuery,
   ...GroupQuery,

@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import express from "express";
 import { ApolloServer } from "apollo-server-express";
+const http = require("http");
 
 import mongoose from "mongoose";
 
@@ -17,7 +18,15 @@ const server = new ApolloServer({
   introspection: true,
   tracing: true,
   path: "/",
+  subscriptions: {
+    onConnect: async (connectionParams, webSocket) => {
+      console.log("xxx");
+      console.log(connectionParams);
+    },
+  },
 });
+
+const httpServer = http.createServer(app);
 
 server.applyMiddleware({
   app,
@@ -34,7 +43,12 @@ server.applyMiddleware({
     }),
 });
 
-app.listen({ port: process.env.PORT }, () => {
+server.installSubscriptionHandlers(httpServer);
+
+httpServer.listen({ port: process.env.PORT }, () => {
   console.log(`🚀 Server listening on port ${process.env.PORT}`);
   console.log(`😷 Health checks available at ${process.env.HEALTH_ENDPOINT}`);
+  console.log(
+    `🚀 Subscriptions ready at ws://localhost:${process.env.PORT}${server.subscriptionsPath}`
+  );
 });

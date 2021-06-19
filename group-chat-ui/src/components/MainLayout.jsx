@@ -14,11 +14,9 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import SendIcon from "@material-ui/icons/Send";
-import { Fab, Grid, TextField } from "@material-ui/core";
-import { GET_GROUPS, GET_USERS, PUSH_MESSAGE } from "./App";
+import { GET_GROUPS, GET_USERS, PUSH_MESSAGE, GROUP_SUBSCRIPTION } from "./App";
 import { useMutation, useQuery } from "@apollo/client";
-import Message from "./Message";
+import ChatWindow from "./ChatWindow";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -56,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "75%",
     minWidth: "25%",
     height: "auto",
+    margin: "8px",
   },
   cardContent: {
     padding: "0 0 0 16px",
@@ -82,13 +81,12 @@ function MainLayout(props) {
   // TODO: Get from context
   const currentUser = "60c50c8485d8a022262decef";
   const [selectedGroupIndex, setSelectedGroupIndex] = useState(0);
-  const [draftMessage, setDraftMessage] = useState("");
   const [pushMessage] = useMutation(PUSH_MESSAGE);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-  const sendMessage = () => {
+  const sendMessage = (draftMessage) => {
     if (!draftMessage) return;
     pushMessage({
       variables: {
@@ -97,9 +95,7 @@ function MainLayout(props) {
         user: currentUser,
       },
     });
-    setDraftMessage("");
   };
-
   const drawer = (
     <div>
       <div className={classes.toolbar} />
@@ -180,44 +176,24 @@ function MainLayout(props) {
           </Drawer>
         </Hidden>
       </nav>
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
-        {getGroups.data &&
-          getGroups.data.groupMany[selectedGroupIndex].chat.map(
-            (messageBlock, index) => {
-              const fromUser = getUsers.data
-                ? getUsers.data.userMany.find(
-                    (user) => user._id === messageBlock.user
-                  )
-                : null;
-              return (
-                <Message
-                  fromUser={fromUser}
-                  messageBlock={messageBlock}
-                  key={index}
-                  classes={classes}
-                ></Message>
-              );
-            }
-          )}
-        <Grid container style={{ padding: "20px" }}>
-          <Grid item xs={11}>
-            <TextField
-              id="outlined-basic-email"
-              label="Type Something"
-              fullWidth
-              value={draftMessage}
-              onChange={(e) => setDraftMessage(e.target.value)}
-              onKeyUp={(e) => e.key == "Enter" && sendMessage()}
-            />
-          </Grid>
-          <Grid xs={1} align="right">
-            <Fab color="primary" aria-label="add">
-              <SendIcon onClick={sendMessage} />
-            </Fab>
-          </Grid>
-        </Grid>
-      </main>
+      {getGroups.data && getGroups.data.groupMany[selectedGroupIndex] && (
+        <ChatWindow
+          classes={classes}
+          getGroups={getGroups}
+          selectedGroupIndex={selectedGroupIndex}
+          getUsers={getUsers}
+          sendMessage={sendMessage}
+          currentUser={currentUser}
+          subscribeToNewMessages={() =>
+            getGroups.subscribeToMore({
+              document: GROUP_SUBSCRIPTION,
+              updateQuery: (prev, { subscriptionData }) => {
+                return prev;
+              },
+            })
+          }
+        />
+      )}
     </div>
   );
 }

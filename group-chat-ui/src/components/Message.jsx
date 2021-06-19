@@ -5,22 +5,23 @@ import {
   CardHeader,
   Typography,
 } from "@material-ui/core";
-const getInitials = (name) => {
-  return name.charAt(0).toUpperCase();
-};
-const Message = ({ fromUser, messageBlock, classes }) => (
-  <Card item className={classes.card}>
+
+const Message = ({ fromUser, messageBlock, classes, currentUser }) => (
+  <Card
+    className={classes.card}
+    style={{
+      alignSelf:
+        currentUser === (fromUser ? fromUser._id : "")
+          ? "flex-end"
+          : "flex-start",
+    }}
+  >
     <CardHeader
       subheader={fromUser ? fromUser.name : "User"}
       className={classes.cardHeader}
     />
     <CardContent className={classes.cardContent}>
-      <Typography variant="body1" noWrap>
-        {messageBlock.message}
-      </Typography>
-      {/*<Typography variant="subtitle" noWrap style={{ float: "right" }}>
-        17 Jan 2021
-</Typography>*/}
+      <Typography variant="body1">{messageBlock.message}</Typography>
     </CardContent>
   </Card>
 );
