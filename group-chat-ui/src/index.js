@@ -32,7 +32,7 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const wsLink = new WebSocketLink({
-  uri: "ws://node-group-chats.herokuapp.com/graphql",
+  uri: "wss://node-group-chats.herokuapp.com/graphql",
   options: {
     reconnect: true,
   },
