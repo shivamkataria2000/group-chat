@@ -4,5 +4,5 @@ node_js:
 script:
   - cd group-chat-server
   - npm install
-  - npm build
+  - npm run build
   - echo 'Build Success'
