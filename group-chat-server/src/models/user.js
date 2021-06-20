@@ -20,7 +20,6 @@ export const UserSchema = new Schema(
       type: String,
       required: true,
       bcrypt: true,
-      select: false,
     },
   },
   {

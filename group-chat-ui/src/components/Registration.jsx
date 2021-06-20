@@ -24,6 +24,7 @@ import CloseIcon from "@material-ui/icons/Close";
 
 class Registration extends Component {
   state = {
+    name: "",
     email: "",
     password: "",
     passwordConfrim: "",
@@ -52,7 +53,10 @@ class Registration extends Component {
   };
 
   isValid = () => {
-    if (this.state.email === "") {
+    if (
+      this.state.email === "" ||
+      (this.state.name === "" && !this.state.loginScreen)
+    ) {
       return false;
     }
     return true;
@@ -67,10 +71,20 @@ class Registration extends Component {
     }
     const newUserCredentials = {
       email: this.state.email,
+      name: this.state.name,
       password: this.state.password,
       passwordConfrim: this.state.passwordConfrim,
     };
     console.log("this.props.newUserCredentials", newUserCredentials);
+    if (this.state.loginScreen) {
+      this.props.attemptLogin(this.state.email, this.state.password);
+    } else {
+      this.props.attemptSignUp(
+        this.state.name,
+        this.state.email,
+        this.state.password
+      );
+    }
     //dispath to userActions
   };
 
@@ -88,6 +102,21 @@ class Registration extends Component {
             className={classes.form}
             onSubmit={() => this.submitRegistration}
           >
+            {!this.state.loginScreen && (
+              <FormControl required fullWidth margin="normal">
+                <InputLabel htmlFor="name" className={classes.labels}>
+                  Name
+                </InputLabel>
+                <Input
+                  name="name"
+                  type="text"
+                  autoComplete="name"
+                  className={classes.inputs}
+                  disableUnderline={true}
+                  onChange={this.handleChange("name")}
+                />
+              </FormControl>
+            )}
             <FormControl required fullWidth margin="normal">
               <InputLabel htmlFor="email" className={classes.labels}>
                 e-mail

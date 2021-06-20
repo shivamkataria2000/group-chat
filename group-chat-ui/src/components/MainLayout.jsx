@@ -17,6 +17,7 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { GET_GROUPS, GET_USERS, PUSH_MESSAGE, GROUP_SUBSCRIPTION } from "./App";
 import { useMutation, useQuery } from "@apollo/client";
 import ChatWindow from "./ChatWindow";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -48,7 +49,9 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
+    padding: theme.spacing(6),
+    paddingLeft: theme.spacing(10),
+    paddingRight: theme.spacing(10),
   },
   card: {
     maxWidth: "75%",
@@ -79,7 +82,6 @@ function MainLayout(props) {
   const getGroups = useQuery(GET_GROUPS);
   const getUsers = useQuery(GET_USERS);
   // TODO: Get from context
-  const currentUser = "60c50c8485d8a022262decef";
   const [selectedGroupIndex, setSelectedGroupIndex] = useState(0);
   const [pushMessage] = useMutation(PUSH_MESSAGE);
 
@@ -92,7 +94,7 @@ function MainLayout(props) {
       variables: {
         id: getGroups.data.groupMany[selectedGroupIndex]._id,
         message: draftMessage,
-        user: currentUser,
+        user: props.user.id,
       },
     });
   };
@@ -143,6 +145,15 @@ function MainLayout(props) {
               ? "Loading ..."
               : getGroups.data.groupMany[selectedGroupIndex].name}
           </Typography>
+          <IconButton
+            color="inherit"
+            aria-label="logout"
+            edge="start"
+            style={{ marginLeft: "auto" }}
+            onClick={() => props.logOut()}
+          >
+            <ExitToAppIcon />
+          </IconButton>
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
@@ -183,7 +194,7 @@ function MainLayout(props) {
           selectedGroupIndex={selectedGroupIndex}
           getUsers={getUsers}
           sendMessage={sendMessage}
-          currentUser={currentUser}
+          currentUser={props.user.id}
           subscribeToNewMessages={() =>
             getGroups.subscribeToMore({
               document: GROUP_SUBSCRIPTION,

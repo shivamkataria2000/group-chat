@@ -8,9 +8,16 @@ import mongoose from "mongoose";
 
 import "./utils/db";
 import schema from "./schema";
+import jwt from "express-jwt";
 
+// auth middleware
+const auth = jwt({
+  secret: process.env.JWT_SECRET,
+  credentialsRequired: false,
+  algorithms: ["HS256"],
+});
 const app = express();
-
+app.use(auth);
 const server = new ApolloServer({
   schema,
   cors: true,
@@ -24,6 +31,10 @@ const server = new ApolloServer({
       console.log(connectionParams);
     },
   },
+  context: ({ req, res }) => ({
+    req,
+    res,
+  }),
 });
 
 const httpServer = http.createServer(app);

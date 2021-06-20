@@ -16,6 +16,10 @@ const ChatWindow = ({
   useEffect(() => {
     subscribeToNewMessages();
   }, []);
+  const pushDraftMessage = () => {
+    sendMessage(draftMessage);
+    setDraftMessage("");
+  };
   return (
     <main className={classes.content}>
       <div className={classes.toolbar} />
@@ -41,19 +45,19 @@ const ChatWindow = ({
           )}
       </div>
       <Grid container style={{ padding: "20px" }}>
-        <Grid item xs={10}>
+        <Grid item xs={11}>
           <TextField
             id="outlined-basic-email"
             label="Type Something"
             fullWidth
             value={draftMessage}
             onChange={(e) => setDraftMessage(e.target.value)}
-            onKeyUp={(e) => e.key == "Enter" && sendMessage(draftMessage)}
+            onKeyUp={(e) => e.key == "Enter" && pushDraftMessage()}
           />
         </Grid>
         <Grid item xs={1} align="right">
           <Fab color="primary" aria-label="add">
-            <SendIcon onClick={() => sendMessage(draftMessage)} />
+            <SendIcon onClick={() => pushDraftMessage()} />
           </Fab>
         </Grid>
       </Grid>
