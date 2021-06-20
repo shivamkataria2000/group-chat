@@ -1,10 +1,4 @@
-import {
-  Avatar,
-  Card,
-  CardContent,
-  CardHeader,
-  Typography,
-} from "@material-ui/core";
+import { Card, CardContent, CardHeader, Typography } from "@material-ui/core";
 
 const Message = ({ fromUser, messageBlock, classes, currentUser }) => {
   const byMe = currentUser === (fromUser ? fromUser._id : "");

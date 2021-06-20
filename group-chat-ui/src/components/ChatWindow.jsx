@@ -15,7 +15,7 @@ const ChatWindow = ({
   const [draftMessage, setDraftMessage] = useState("");
   useEffect(() => {
     subscribeToNewMessages();
-  }, []);
+  });
   const pushDraftMessage = () => {
     sendMessage(draftMessage);
     setDraftMessage("");
@@ -52,7 +52,7 @@ const ChatWindow = ({
             fullWidth
             value={draftMessage}
             onChange={(e) => setDraftMessage(e.target.value)}
-            onKeyUp={(e) => e.key == "Enter" && pushDraftMessage()}
+            onKeyUp={(e) => e.key === "Enter" && pushDraftMessage()}
           />
         </Grid>
         <Grid item xs={1} align="right">
