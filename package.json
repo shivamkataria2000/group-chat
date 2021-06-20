@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "build": "cd group-chat-server && babel src --out-dir dist",
-    "start": "node group-chat-server/dist/index.js",
+    "start": "node group-chat-server/dist/index.js"
   },
   "author": "shivam kataria",
   "license": "ISC",
