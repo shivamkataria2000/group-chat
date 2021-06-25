@@ -4,7 +4,13 @@
   "description": "",
   "scripts": {
     "build": "cd group-chat-server && babel src --out-dir dist",
-    "start": "node group-chat-server/dist/index.js"
+    "start": "node group-chat-server/dist/index.js",
+    "dev": "nodemon --exec  npx babel-node -r dotenv/config group-chat-server/src/index.js",
+    "prettier": "prettier --config ./.prettierrc --write \"**/*.js\"",
+    "pretest": "eslint --ignore-path .gitignore .",
+    "postinstall": "rm -rf dist && yarn run build",
+    "lint": "yarn prettier --write --check --config ./.prettierrc \"**/*.js\" && eslint --fix ./src",
+    "release": "release-it patch --no-npm.publish"
   },
   "author": "shivam kataria",
   "license": "ISC",

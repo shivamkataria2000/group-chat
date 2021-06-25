@@ -102,6 +102,9 @@ function App() {
         email: loginInfo.email,
       });
     }
+    if (loggedIn.error) {
+      localStorage.removeItem("token");
+    }
   }, [loggedIn]);
   const logOut = () => {
     localStorage.removeItem("token");
