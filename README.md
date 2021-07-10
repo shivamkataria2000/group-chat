@@ -86,8 +86,7 @@ To get a local copy up and running follow these simple example steps.
    ```
 3. Install NPM packages
    ```sh
-   npm install
-   cd 
+   npm install 
    ```
 4. Create a `.env` file with the following
     ```
