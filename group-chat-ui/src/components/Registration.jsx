@@ -69,13 +69,6 @@ class Registration extends Component {
         error: "Passwords don't match",
       });
     }
-    const newUserCredentials = {
-      email: this.state.email,
-      name: this.state.name,
-      password: this.state.password,
-      passwordConfrim: this.state.passwordConfrim,
-    };
-    console.log("this.props.newUserCredentials", newUserCredentials);
     if (this.state.loginScreen) {
       this.props.attemptLogin(this.state.email, this.state.password);
     } else {

@@ -9,9 +9,9 @@ A Simple Group Chat application made using MERN (MongoDB Express React Node) sta
     <br />
     <a href="https://group-chat-kappa.vercel.app/">View Demo</a>
     ·
-    <a href="https://github.com/shivamkataria2000/group-chat">Report Bug</a>
+    <a href="https://github.com/shivamkataria2000/group-chat/issues/new">Report Bug</a>
     ·
-    <a href="https://github.com/shivamkataria2000/group-chat">Request Feature</a>
+    <a href="https://github.com/shivamkataria2000/group-chat/issues/new">Request Feature</a>
   </p>
 </p>
 
@@ -34,8 +34,6 @@ A Simple Group Chat application made using MERN (MongoDB Express React Node) sta
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -49,23 +47,21 @@ A Simple Group Chat application made using MERN (MongoDB Express React Node) sta
 
 ![Sample Sceenshot](screenshot.png?raw=true "Title")
 
-There are many great README templates available on GitHub, however, I didn't find one that really suit my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
+This is a simple project to learn graphQL by builing a grouph chat application where we build a node.js server to host the graphql API's and a React based client to connect to it
 
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should element DRY principles to the rest of your life :smile:
-
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have have contributed to expanding this template!
-
-A list of commonly used resources that I find helpful are listed in the acknowledgements.
-
+Major Features of this application:
+* Registration / Login functionality with JWT based authentication
+* MongoDB Schema using Mongoose library 
+* GraphQL schema generation using graphql-compose-mongoose
+* React based client with Material-ui components.
+* GraphQL subscriptions for real-time messaging 
+  
 ### Built With
 
-This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-* [Bootstrap](https://getbootstrap.com)
-* [JQuery](https://jquery.com)
-* [Laravel](https://laravel.com)
+* [Node.js](https://nodejs.org/en/)
+* [React](https://reactjs.org/)
+* [Apollo GraphQL](https://www.apollographql.com/)
+* [MongoDB](https://www.mongodb.com/)
 
 
 
@@ -76,8 +72,6 @@ This is an example of how you may give instructions on setting up your project l
 To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
 * npm
   ```sh
   npm install npm@latest -g
@@ -85,7 +79,7 @@ This is an example of how to list things you need to use the software and how to
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
+1. Creata a free cluster on MongoDB Atlas and get the connection URI
 2. Clone the repo
    ```sh
    git clone https://github.com/shivamkataria2000/group-chat
@@ -95,29 +89,27 @@ This is an example of how to list things you need to use the software and how to
    npm install
    cd 
    ```
-4. Enter your API in `config.js`
-   ```JS
-   const API_KEY = 'ENTER YOUR API';
+4. Create a `.env` file with the following
+    ```
+    NODE_ENV=development
+    PORT=8000
+    MONGODB_URI=***GET_FROM_MONGO_DB_ATLAS****
+    HEALTH_ENDPOINT=up
+    JWT_SECRET=***ChangeThis***
+    ```
+5. Update config.js
    ```
-
-
-
-<!-- USAGE EXAMPLES -->
-## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-
-
-<!-- ROADMAP -->
-## Roadmap
-
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a list of proposed features (and known issues).
-
-
-
+   export const HTTP_API_URL = "http://localhost:8080/graphql";
+   export const WS_API_URL = "ws://localhost:8080/graphql";
+   ```
+6. Start the server
+   ```sh
+   npm run dev
+   ```
+7. Start the client
+   ```
+   npm run client
+   ```
 <!-- CONTRIBUTING -->
 ## Contributing
 

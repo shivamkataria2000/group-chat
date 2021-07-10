@@ -14,9 +14,10 @@ import {
   HttpLink,
 } from "@apollo/client";
 import { getMainDefinition } from "@apollo/client/utilities";
+import { HTTP_API_URL, WS_API_URL } from "./config";
 
 const httpLink = new HttpLink({
-  uri: "https://node-group-chats.herokuapp.com/graphql",
+  uri: HTTP_API_URL,
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -32,7 +33,7 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const wsLink = new WebSocketLink({
-  uri: "wss://node-group-chats.herokuapp.com/graphql",
+  uri: WS_API_URL,
   options: {
     reconnect: true,
   },

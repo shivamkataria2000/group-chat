@@ -10,7 +10,8 @@
     "pretest": "eslint --ignore-path .gitignore .",
     "postinstall": "rm -rf group-chat-server/dist && npm run build",
     "lint": "yarn prettier --write --check --config ./.prettierrc \"**/*.js\" && eslint --fix ./src",
-    "release": "release-it patch --no-npm.publish"
+    "release": "release-it patch --no-npm.publish",
+    "client":"cd group-chat-ui && npm start"
   },
   "author": "shivam kataria",
   "license": "MIT",
