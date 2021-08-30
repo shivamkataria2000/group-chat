@@ -86,8 +86,7 @@ To get a local copy up and running follow these simple example steps.
    ```
 3. Install NPM packages
    ```sh
-   npm install
-   cd 
+   npm install 
    ```
 4. Create a `.env` file with the following
     ```
@@ -105,10 +104,12 @@ To get a local copy up and running follow these simple example steps.
 6. Start the server
    ```sh
    npm run dev
+   Open http://localhost:8000/ for graphQL playground
    ```
 7. Start the client
    ```
    npm run client
+   Open http://localhost:3000/
    ```
 <!-- CONTRIBUTING -->
 ## Contributing
