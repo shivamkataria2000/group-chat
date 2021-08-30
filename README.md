@@ -47,7 +47,7 @@ A Simple Group Chat application made using MERN (MongoDB Express React Node) sta
 
 ![Sample Sceenshot](screenshot.png?raw=true "Title")
 
-This is a simple project to learn graphQL by builing a grouph chat application where we build a node.js server to host the graphql API's and a React based client to connect to it
+This is a simple project to learn graphQL by building a group chat application where we build a node.js server to host the graphql API's and a React based client to connect to it
 
 Major Features of this application:
 * Registration / Login functionality with JWT based authentication
