@@ -1,2 +1,2 @@
-export const HTTP_API_URL = "https://node-group-chats.herokuapp.com/graphql";
-export const WS_API_URL = "wss://node-group-chats.herokuapp.com/graphql";
+export const HTTP_API_URL = "https://group-chat-iw8q.onrender.com/graphql";
+export const WS_API_URL = "wss://group-chat-iw8q.onrender.com/graphql";
