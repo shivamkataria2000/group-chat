@@ -15,8 +15,6 @@ A Simple Group Chat application made using MERN (MongoDB Express React Node) sta
   </p>
 </p>
 
-
-
 <!-- TABLE OF CONTENTS -->
 <details open="open">
   <summary>Table of Contents</summary>
@@ -40,9 +38,8 @@ A Simple Group Chat application made using MERN (MongoDB Express React Node) sta
   </ol>
 </details>
 
-
-
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
 ![Sample Sceenshot](screenshot.png?raw=true "Title")
@@ -50,29 +47,30 @@ A Simple Group Chat application made using MERN (MongoDB Express React Node) sta
 This is a simple project to learn graphQL by building a group chat application where we build a node.js server to host the graphql API's and a React based client to connect to it
 
 Major Features of this application:
-* Registration / Login functionality with JWT based authentication
-* MongoDB Schema using Mongoose library 
-* GraphQL schema generation using graphql-compose-mongoose
-* React based client with Material-ui components.
-* GraphQL subscriptions for real-time messaging 
-  
+
+- Registration / Login functionality with JWT based authentication
+- MongoDB Schema using Mongoose library
+- GraphQL schema generation using graphql-compose-mongoose
+- React based client with Material-ui components.
+- GraphQL subscriptions for real-time messaging
+
 ### Built With
 
-* [Node.js](https://nodejs.org/en/)
-* [React](https://reactjs.org/)
-* [Apollo GraphQL](https://www.apollographql.com/)
-* [MongoDB](https://www.mongodb.com/)
-
-
+- [Node.js](https://nodejs.org/en/)
+- [React](https://reactjs.org/)
+- [Apollo GraphQL](https://www.apollographql.com/)
+- [MongoDB](https://www.mongodb.com/)
 
 <!-- GETTING STARTED -->
+
 ## Getting Started
 
 This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
-* npm
+
+- npm
   ```sh
   npm install npm@latest -g
   ```
@@ -86,16 +84,16 @@ To get a local copy up and running follow these simple example steps.
    ```
 3. Install NPM packages
    ```sh
-   npm install 
+   npm install
    ```
 4. Create a `.env` file with the following
-    ```
-    NODE_ENV=development
-    PORT=8000
-    MONGODB_URI=***GET_FROM_MONGO_DB_ATLAS****
-    HEALTH_ENDPOINT=up
-    JWT_SECRET=***ChangeThis***
-    ```
+   ```
+   NODE_ENV=development
+   PORT=8000
+   MONGODB_URI=***GET_FROM_MONGO_DB_ATLAS****
+   HEALTH_ENDPOINT=up
+   JWT_SECRET=***ChangeThis***
+   ```
 5. Update config.js
    ```
    export const HTTP_API_URL = "http://localhost:8080/graphql";
@@ -111,7 +109,8 @@ To get a local copy up and running follow these simple example steps.
    npm run client
    Open http://localhost:3000/
    ```
-<!-- CONTRIBUTING -->
+   <!-- CONTRIBUTING -->
+
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -122,18 +121,23 @@ Contributions are what make the open source community such an amazing place to b
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-
-
 <!-- LICENSE -->
+
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
-
-
 <!-- CONTACT -->
+
 ## Contact
 
 Shivam Kataria - [@smartShivkat](https://twitter.com/smartShivkat) - shivamkataria2000@gmail.com
 
 Project Link: [https://github.com/shivamkataria2000/group-chat](https://github.com/shivamkataria2000/group-chat)
+
+## Deployments:
+
+- UI is deployed with vercel
+- Updated from node 14 to 16 (As of 9th Oct 2023)
+
+- Sevice layer migrated from Heroku to Render as of 9th Oct 2023
